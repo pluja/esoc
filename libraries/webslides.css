@@ -1,0 +1,1708 @@
+/*!
+ * Name: WebSlides
+ * Version: 1.5.0
+ * Date: 2017-09-16
+ * Description: Making HTML presentations easy
+ * URL: https://github.com/webslides/webslides#readme
+ * Credits: @jlantunez, @LuisSacristan, @Belelros
+ */
+@charset "UTF-8";
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline; }
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+blockquote,
+q {
+  quotes: '' ''; }
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: ''; }
+
+
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; }
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit; }
+
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  vertical-align: baseline; }
+
+embed,
+iframe,
+object {
+  max-width: 100%; }
+
+audio:not([controls]) {
+  display: none;
+  height: 0; }
+
+[hidden],
+template {
+  display: none; }
+
+ul {
+  list-style: square;
+  text-indent: inherit; }
+
+ol {
+  list-style: decimal; }
+
+b,
+strong {
+  font-weight: 600; }
+
+a {
+  background-color: transparent; }
+
+a:active,
+a:hover {
+  outline: 0; }
+
+sup,
+sub {
+  font-size: .75em;
+  height: 0;
+  line-height: 2.2em;
+  position: relative;
+  vertical-align: baseline; }
+
+sup {
+  bottom: 1ex; }
+
+sub {
+  top: .5ex; }
+
+small {
+  font-size: .75em;
+  line-height: 1.72; }
+
+big {
+  font-size: 1.25em; }
+
+hr {
+  border: 0;
+  clear: both;
+  display: block;
+  height: 1px;
+  margin: 3.2rem auto;
+  text-align: center;
+  width: 100%; }
+
+h2 + hr,
+h3 + hr {
+  margin-bottom: 4.8rem; }
+
+p + hr {
+  margin-bottom: 4rem; }
+
+dfn,
+cite,
+em,
+i {
+  font-style: italic; }
+
+abbr,
+acronym {
+  cursor: help; }
+
+mark,
+ins {
+  padding: 0 4px;
+  text-decoration: none;
+  text-shadow: none; }
+
+::-moz-selection {
+  text-shadow: none; }
+
+::selection {
+  text-shadow: none; }
+
+img {
+  border: 0;
+  height: auto;
+  max-width: 100%; }
+
+img:hover {
+  opacity: .9; }
+
+svg:not(:root) {
+  overflow: hidden; }
+
+figure {
+  line-height: 0;
+  margin: 0;
+  position: relative; }
+
+optgroup {
+  font-weight: bold; }
+
+td,
+th {
+  padding: 0; }
+
+dt {
+  font-weight: bold; }
+
+dd {
+  margin: 0; }
+
+/*=== Clearing === */
+header:before, header:after,
+main:before,
+main:after,
+section:before,
+section:after,
+aside:before,
+aside:after,
+footer:before,
+footer:after,
+.clear:before,
+.clear:after,
+.wrap:before,
+.wrap:after {
+  content: '';
+  display: table; }
+
+header:after,
+main:after,
+section:after,
+aside:after,
+footer:after,
+.clear:after,
+.wrap:after {
+  clear: both; }
+
+/*=========================================
+1. Base --> Baseline: 8px = .8rem
+=========================================== */
+/* -- Disable elastic scrolling/bounce:
+webslides.js will add .ws-ready automatically. Don't worry :) -- */
+.ws-ready,
+.ws-ready body {
+  height: 100%;
+  overflow: hidden;
+  width: 100%; }
+
+.ws-ready.ws-ready-zoom {
+  overflow: visible; }
+  .ws-ready.ws-ready-zoom body {
+    overflow: auto; }
+
+#webslides {
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll; }
+  #webslides::-webkit-scrollbar {
+    display: none; }
+
+li li {
+  margin-left: 1.6rem; }
+
+a,
+a:active,
+a:focus,
+a:visited,
+input:focus,
+textarea:focus,
+button {
+  text-decoration: none;
+  -webkit-transition: all .3s ease-out;
+  transition: all .3s ease-out; }
+
+p a:active {
+  position: relative;
+  top: 2px; }
+
+nav a[rel='external'] em,
+.hidden {
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  width: 1px; }
+
+.shadow {
+  position: relative; }
+  .shadow:before, .shadow:after {
+    bottom: 1.6rem;
+    content: '';
+    max-width: 300px;
+    position: absolute;
+    top: 80%;
+    width: 50%;
+    z-index: -1; }
+  .shadow:after {
+    right: 2.4rem;
+    -webkit-transform: rotate(3deg);
+            transform: rotate(3deg); }
+  .shadow:before {
+    left: 2.4rem;
+    -webkit-transform: rotate(-3deg);
+            transform: rotate(-3deg); }
+
+/*=== 1.1 WRAP/CONTAINER === */
+.wrap,
+header nav,
+footer nav {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  position: relative;
+  width: 100%;
+  z-index: 2; }
+  @media (min-width: 1024px) {
+    .wrap,
+    header nav,
+    footer nav {
+      width: 90%; } }
+
+.frame,
+.shadow {
+  padding: 2.4rem; }
+
+.radius {
+  border-radius: .4rem; }
+
+.alignright {
+  float: right; }
+
+.alignleft {
+  float: left; }
+
+.aligncenter {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center; }
+
+img.aligncenter,
+figure.aligncenter {
+  display: block;
+  margin-bottom: .8rem;
+  margin-top: .8rem; }
+
+img.alignleft,
+figure.alignleft,
+img.alignright,
+figure.alignright,
+img.aligncenter,
+figure.aligncenter {
+  margin-bottom: 3.2rem;
+  margin-top: 3.2rem; }
+
+img.alignright,
+svg.alignright,
+figure.alignright {
+  margin: .8rem 0 .8rem 2.4rem; }
+
+img.alignleft,
+svg.alignleft,
+figure.alignleft {
+  margin: .8rem 2.4rem .8rem 0; }
+
+/*=== div.size-60, img.size-50, h1.size-40, p.size-30... === */
+@media (min-width: 1024px) {
+  .size-80 {
+    width: 80%; }
+  .size-70 {
+    width: 70%; }
+  .size-60 {
+    width: 60%; }
+  .size-50 {
+    width: 50%; }
+  .size-40 {
+    width: 40%; }
+  .size-30 {
+    width: 30%; }
+  .size-20 {
+    width: 20%; } }
+
+pre,
+code {
+  font-family: 'Cousine', monospace; }
+
+pre {
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  overflow: auto;
+  padding: 2.4rem;
+  text-align: left;
+  white-space: pre-wrap;
+  width: 100%;
+  word-wrap: break-word; }
+  pre + p {
+    margin-top: 3.2rem; }
+  pre code {
+    padding: 0; }
+
+code {
+  padding: .4rem; }
+
+/* === 1.2 Animations ================
+Just 5 basic animations:
+.fadeIn, .fadeInUp, .zoomIn, .slideInLeft, and .slideInRight
+https://github.com/daneden/animate.css */
+/*-- fadeIn -- */
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+@keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+.fadeIn {
+  -webkit-animation: fadeIn 1s;
+          animation: fadeIn 1s; }
+  
+
+/* Animated Background (Matrix) */
+@-webkit-keyframes anim {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); }
+  100% {
+    -webkit-transform: translateY(-1200px);
+            transform: translateY(-1200px); } }
+@keyframes anim {
+  0% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0); }
+  100% {
+    -webkit-transform: translateY(-1200px);
+            transform: translateY(-1200px); } }
+
+/* Duration */
+.slow {
+  -webkit-animation-duration: 4s;
+          animation-duration: 4s; }
+  .slow + .slow {
+    -webkit-animation-duration: 5s;
+            animation-duration: 5s; }
+
+
+/*=== 1.4. Basic Grid (Flexible blocks)
+Auto-fill & Equal height === */
+.grid {
+  clear: both;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto; }
+  .grid:after {
+    clear: both; }
+  .grid:before {
+    content: '';
+    display: table; }
+  .grid > .column {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+        -ms-flex: auto;
+            flex: auto;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    padding: 2.4rem;
+    position: relative;
+    -webkit-transition: .3s;
+    transition: .3s;
+    width: 100%; }
+  .grid.vertical-align .column {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center; }
+  @media (min-width: 768px) {
+    .grid > .column {
+      width: 25%; }
+    .grid.sm .column:nth-child(1) {
+      width: 30%; }
+    .grid.sm .column:nth-child(2) {
+      width: 70%; }
+    .grid.ms .column:nth-child(1) {
+      width: 70%; }
+    .grid.ms .column:nth-child(2) {
+      width: 30%; }
+    .grid.sms .column:nth-child(2) {
+      width: 50%; } }
+
+/*============================
+2. TYPOGRAPHY & LISTS
+============================== */
+html,
+body {
+  font-weight: 300;
+  line-height: 1;
+  text-rendering: optimizeLegibility; }
+
+html,
+body,
+input,
+select,
+textarea {
+  font-family: 'Roboto', 'San Francisco', helvetica, arial, sans-serif;
+  font-size: 62.5%; }
+
+body,
+textarea {
+  font-size: 1.8rem; }
+
+p,
+li,
+dt,
+dd,
+time,
+table,
+big,
+textarea,
+label {
+  line-height: 3.2rem;
+  margin-bottom: 3.2rem; }
+
+li,
+p:last-child {
+  margin-bottom: 0; }
+
+ul > li,
+ol > li {
+  margin-left: 3.2rem; }
+
+li li {
+  font-size: 100%; }
+
+/*== List .description (Product/Specs) === */
+ul.description {
+  padding: 0; }
+  ul.description + p {
+    margin-top: 3.2rem; }
+  ul.description li {
+    padding-bottom: .8rem;
+    padding-top: .8rem;
+    position: relative;
+    -webkit-transition: .3s;
+    transition: .3s; }
+  ul.description li:hover {
+    padding-left: .4rem; }
+
+ul.description li,
+.column ul li {
+  list-style: none;
+  margin-left: 0; }
+
+.column ol > li {
+  margin-left: 1.6rem; }
+
+h1 svg,
+h2 svg,
+h3 svg,
+h4 svg {
+  margin-top: -.8rem; }
+
+.text-intro svg,
+.text-quote p svg,
+.wall p svg,
+.try svg {
+  margin-top: -.4rem; }
+
+h1 {
+  font-size: 4rem;
+  line-height: 5.6rem; }
+  @media (min-width: 768px) {
+    h1 {
+      font-size: 5.6rem;
+      line-height: 7.2rem; } }
+
+h1 span {
+  font-style: italic; }
+
+h2 {
+  font-size: 3.2rem;
+  line-height: 4.8rem; }
+  @media (min-width: 768px) {
+    h2 {
+      font-size: 4.8rem;
+      line-height: 6.4rem; } }
+
+h3 {
+  font-size: 2.4rem;
+  line-height: 4rem; }
+  @media (min-width: 768px) {
+    h3 {
+      font-size: 4rem;
+      line-height: 5.6rem; } }
+
+h4 {
+  font-size: 2.2rem;
+  line-height: 4rem; }
+  @media (min-width: 768px) {
+    h4 {
+      font-size: 3.2rem;
+      line-height: 4.8rem; } }
+
+h5 {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 3.2rem; }
+
+h6 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 3.2rem; }
+
+h2.alignleft + p.alignright {
+  margin-bottom: 0;
+  margin-top: 1.2rem; }
+
+h3.alignleft + p.alignright {
+  margin-bottom: 0;
+  margin-top: .4rem; }
+
+h1 + h1 {
+  margin-top: .8rem; }
+
+h1 + h2 {
+  margin-top: .8rem; }
+
+h1 + h3 {
+  margin-top: .8rem; }
+
+h1 + h4 {
+  margin-top: .8rem; }
+
+h1 + h5 {
+  margin-top: .8rem; }
+
+h1 + h6 {
+  margin-top: .8rem; }
+
+h2 + h1 {
+  margin-top: .8rem; }
+
+h2 + h2 {
+  margin-top: .8rem; }
+
+h2 + h3 {
+  margin-top: .8rem; }
+
+h2 + h4 {
+  margin-top: .8rem; }
+
+h2 + h5 {
+  margin-top: .8rem; }
+
+h2 + h6 {
+  margin-top: .8rem; }
+
+h3 + h1 {
+  margin-top: .8rem; }
+
+h3 + h2 {
+  margin-top: .8rem; }
+
+h3 + h3 {
+  margin-top: .8rem; }
+
+h3 + h4 {
+  margin-top: .8rem; }
+
+h3 + h5 {
+  margin-top: .8rem; }
+
+h3 + h6 {
+  margin-top: .8rem; }
+
+h4 + h1 {
+  margin-top: .8rem; }
+
+h4 + h2 {
+  margin-top: .8rem; }
+
+h4 + h3 {
+  margin-top: .8rem; }
+
+h4 + h4 {
+  margin-top: .8rem; }
+
+h4 + h5 {
+  margin-top: .8rem; }
+
+h4 + h6 {
+  margin-top: .8rem; }
+
+h5 + h1 {
+  margin-top: .8rem; }
+
+h5 + h2 {
+  margin-top: .8rem; }
+
+h5 + h3 {
+  margin-top: .8rem; }
+
+h5 + h4 {
+  margin-top: .8rem; }
+
+h5 + h5 {
+  margin-top: .8rem; }
+
+h5 + h6 {
+  margin-top: .8rem; }
+
+h6 + h1 {
+  margin-top: .8rem; }
+
+h6 + h2 {
+  margin-top: .8rem; }
+
+h6 + h3 {
+  margin-top: .8rem; }
+
+h6 + h4 {
+  margin-top: .8rem; }
+
+h6 + h5 {
+  margin-top: .8rem; }
+
+h6 + h6 {
+  margin-top: .8rem; }
+
+h1 + img,
+h2 + img,
+h3 + img {
+  margin-bottom: 4.8rem;
+  margin-top: 4.8rem; }
+
+[class*='content-'] > [class*='content-'] h2,
+[class*='content-'] > [class*='content-'] h3,
+[class*='content-'] > [class*='content-'] h4 {
+  font-size: 2.4rem;
+  line-height: 4rem; }
+
+/*== 2.1. Headings with background ==*/
+h1[class*='bg-'] {
+  padding: 2.4rem; }
+
+h2[class*='bg-'] {
+  padding: 2.4rem; }
+
+h3[class*='bg-'] {
+  padding: 2.4rem; }
+
+h4[class*='bg-'] {
+  padding: 2.4rem; }
+
+h5[class*='bg-'] {
+  padding: 2.4rem; }
+
+h6[class*='bg-'] {
+  padding: 2.4rem; }
+
+ul[class*='bg-'],
+ol[class*='bg-'],
+li[class*='bg-'],
+p[class*='bg-'] {
+  padding: 2.4rem; }
+
+h1 [class*='bg-'],
+h2 [class*='bg-'],
+h3 [class*='bg-'] {
+  padding: .4rem .8rem; }
+
+/*== 2.2. Typography Classes = .text- == */
+.text-intro,
+[class*='content-'] p {
+  font-size: 2.4rem;
+  line-height: 4rem; }
+
+/* -- Serif -- */
+.text-serif,
+h1 span {
+  font-family: 'Maitree', times, serif; }
+
+/* -- h1,h2... Promo/Landings -- */
+.text-landing {
+  letter-spacing: .4rem;
+  text-transform: uppercase; }
+  @media (min-width: 768px) {
+    .text-landing {
+      letter-spacing: 1.6rem; } }
+
+/* -- Subtitle (Before h1, h2) p.subtitle + h1/h2 */
+.text-subtitle {
+  letter-spacing: .2rem;
+  margin-bottom: 0;
+  text-transform: uppercase; }
+  .text-subtitle p.text-subtitle {
+    font-size: 1.6rem; }
+    .text-subtitle p.text-subtitle svg {
+      vertical-align: text-top; }
+  .text-subtitle + p {
+    margin-top: 3.2rem; }
+
+.text-uppercase {
+  text-transform: uppercase; }
+
+.text-lowercase {
+  text-transform: lowercase; }
+
+/* -- Emoji (you'll love this) -- */
+.text-emoji {
+  font-size: 6.8rem;
+  line-height: 8.8rem; }
+  @media (min-width: 768px) {
+    .text-emoji {
+      font-size: 12.8rem;
+      line-height: 16rem; } }
+
+/* -- Numbers (results, sales... 23,478,289 iphones) -- */
+.text-data {
+  font-size: 6.4rem;
+  line-height: 8rem;
+  margin-bottom: .8rem; }
+  @media (min-width: 768px) {
+    .text-data {
+      font-size: 15.2rem;
+      line-height: 16.8rem; } }
+
+.text-label {
+  display: inline-block;
+  font-weight: 600;
+  text-transform: uppercase;
+  width: 12.8rem; }
+
+/* -- Magazine Two Columns -- */
+@media (min-width: 768px) {
+  .text-cols {
+    -webkit-column-count: 2;
+            column-count: 2;
+    -webkit-column-gap: 4.8rem;
+            column-gap: 4.8rem;
+    text-align: left; }
+  .text-landing + .text-cols {
+    margin-top: 3.2rem; } }
+
+.text-cols p:first-child:first-letter {
+  float: left;
+  font-size: 11rem;
+  font-weight: 600;
+  line-height: 1;
+  margin: -.4rem 1.6rem 0 0;
+  padding: 0;
+  text-transform: uppercase; }
+
+/* -- Heading with border -- */
+.text-context {
+  position: relative; }
+  .text-context:before {
+    content: '';
+    display: block;
+    height: .2rem;
+    margin-bottom: .6rem;
+    width: 12rem; }
+    .column .text-context:before {
+      width: 100%; }
+  .text-context.text-uppercase {
+    letter-spacing: .1rem; }
+
+/* -- Separator/Symbols (stars ***...) -- */
+.text-symbols {
+  font-weight: 600;
+  letter-spacing: .8rem;
+  text-align: center; }
+
+.text-separator {
+  margin-top: 2.4rem; }
+  .text-separator:before {
+    content: '';
+    height: .4rem;
+    left: 0;
+    margin-top: -1.6rem;
+    position: absolute;
+    width: 16%; }
+  @media (min-width: 568px) {
+    .text-separator {
+      margin-left: 20%;
+      margin-top: 0;
+      width: 80%; }
+      .text-separator:before {
+        margin-top: 1.2rem; } }
+
+/* -- Pull Quote (Right/Left)  -- */
+[class*='text-pull'] {
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 4rem;
+  margin-bottom: 3.2rem;
+  margin-left: 2.4rem;
+  margin-right: 2.4rem;
+  position: relative; }
+
+[class*='text-pull-'] {
+  margin-top: .8rem;
+  padding-top: 1.4rem; }
+  @media (min-width: 1024px) {
+    [class*='text-pull-'] {
+      margin-left: -4.8rem;
+      margin-right: -4.8rem; } }
+
+@media (min-width: 568px) {
+  [class*='text-pull-'] {
+    max-width: 40%; }
+  .text-pull-right {
+    float: right;
+    margin-left: 2.4rem;
+    margin-right: -2.4rem; }
+  .text-pull-left {
+    float: left;
+    margin-left: -2.4rem;
+    margin-right: 2.4rem; } }
+
+img[class*='text-pull-'],
+figure[class*='text-pull-'] {
+  margin-top: .8rem;
+  padding-top: 0; }
+
+/* -- Interviews (Questions & Answers)  --- */
+/* -- <dl class="text-interview">
+<dt>name</dt>
+<dd><p>question or answer</p>
+</dd>
+--- */
+.text-interview dt {
+  font-weight: 600;
+  margin-bottom: 0;
+  text-transform: uppercase; }
+
+@media (min-width: 1024px) {
+  .text-interview dt {
+    margin-left: -34%;
+    position: absolute;
+    text-align: right;
+    white-space: nowrap;
+    width: 30%; } }
+
+/* -- Info Messages (error, warning, success... -- */
+.text-info {
+  font-size: 1.6rem;
+  line-height: 2.4rem; }
+
+
+/*=========================================
+3. Header & Footer
+=========================================== */
+/* -- If you want an unique, global header/footer,read this:
+https://github.com/webslides/webslides/issues/57 -- */
+header,
+footer,
+#navigation {
+  padding: 2.4rem;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+  width: 100%; }
+
+header p,
+footer p {
+  line-height: 4.8rem;
+  margin-bottom: 0; }
+
+header[role='banner'] img,
+footer img {
+  height: 4rem;
+  vertical-align: middle; }
+
+footer {
+  position: relative; }
+
+header,
+footer {
+  z-index: 3; }
+
+header,
+.ws-ready footer {
+  left: 0;
+  position: absolute;
+  top: 0; }
+
+.ws-ready footer {
+  bottom: 0;
+  top: auto; }
+
+header[role='banner'] {
+  opacity: 0; }
+  header[role='banner']:hover {
+    opacity: 1; }
+
+@media (max-width: 767px) {
+  footer .alignleft,
+  footer .alignright {
+    display: block;
+    float: none; } }
+
+
+/*============================================
+5. SLIDES (Full Screen)
+Vertically and horizontally centered
+============================================== */
+/* Fade transition to all slides.
+* = All HTML elements will have those styles.*/
+section * {
+  -webkit-animation: fadeIn .6s ease-in-out;
+          animation: fadeIn .6s ease-in-out; }
+
+section .background,
+section .light,
+section .dark {
+  -webkit-animation-duration: 0s;
+          animation-duration: 0s; }
+
+/*=== Section = Slide === */
+section,
+.slide {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  min-height: 100vh;
+  /*Fullscreen*/
+  /* Prototyping? min-height: 720px (Baseline: 8px = .8rem)*/
+  padding: 2.4rem;
+  /*Fixed/Visible header? padding-top: 12rem; */
+  page-break-after: always;
+  position: relative;
+  word-wrap: break-word; }
+  @media (min-width: 1024px) {
+    section,
+    .slide {
+      padding-bottom: 12rem;
+      padding-top: 12rem; } }
+
+/*slide with no padding (full card, .embed youtube video...) */
+.fullscreen {
+  padding: 0;
+  /* Fixed/Visible header?
+  padding:8.2rem 0 0 0;
+  */ }
+
+/* slide alignment - top */
+.slide-top {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start; }
+
+/* slide alignment - bottom */
+.slide-bottom {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end; }
+
+/*== 5.1. Mini container width:50%
+Aligned items [class*="content-"]=== */
+[class*='content-'] {
+  position: relative;
+  text-align: left; }
+
+.wrap[class*='bg-'],
+.wrap.frame,
+[class*='content-'][class*='bg-'],
+[class*='content-'].frame,
+[class*='align'][class*='bg-'] {
+  padding: 4.8rem; }
+
+form[class*='bg-'] {
+  padding: 2.4rem; }
+
+[class*='content-'] > [class*='content-'] p {
+  font-size: 1.8rem;
+  line-height: 3.2rem; }
+
+.content-center {
+  margin: 0 auto;
+  text-align: center; }
+
+@media (min-width: 768px) {
+  [class*='content-'] {
+    width: 50%; }
+    [class*='content-']:after, [class*='content-']:before {
+      content: '';
+      display: table; }
+    [class*='content-']:after {
+      clear: both; }
+  .content-left {
+    float: left; }
+  .content-right {
+    float: right; }
+  [class*='content-'] + [class*='content-'] {
+    margin-bottom: 4.8rem;
+    padding-left: 2.4rem; }
+  [class*='content-'] + [class*='size-'] {
+    clear: both;
+    margin-top: 6.4rem; } }
+
+/*=== 5.3 Slides - Background Images/Videos === */
+.background,
+[class*='background-'] {
+  background-repeat: no-repeat;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0; }
+
+/*=== BG Positions === */
+.background {
+  background-position: center;
+  background-size: cover;
+  /*fullscreen video
+    <video class="background-video">
+  */ }
+  .background-top {
+    background-position: top;
+    background-size: cover; }
+  .background-bottom {
+    background-position: bottom;
+    background-size: cover; }
+  .background-center {
+    background-position: center; }
+  .background-center-top {
+    background-position: center top; }
+  .background-right-top {
+    background-position: right top; }
+  .background-left-top {
+    background-position: left top; }
+  .background-center-bottom, .background-left-bottom, .background-right-bottom, .background-left, .background-right {
+    background-position: center bottom; }
+  @media (min-width: 1024px) {
+    .background-left-bottom {
+      background-position: left bottom; }
+    .background-right-bottom {
+      background-position: right bottom; }
+    .background-right {
+      background-position: right; }
+    .background-left {
+      background-position: left; } }
+  .background-video {
+    height: 100%;
+    -o-object-fit: fill;
+       object-fit: fill;
+    width: 100%; }
+
+/*=== bg image/video overlay === */
+/*-- [class*="bg-"] .background.dark, [class*="bg-"] .embed.dark...  -- */
+[class*='bg-'] .light,
+[class*='bg-'] .light {
+  opacity: .8; }
+
+[class*='bg-'] .dark,
+[class*='bg-'] .dark {
+  opacity: .2; }
+
+[class*='bg-'] .background-video.dark {
+  opacity: .5; }
+
+@media (max-width: 1023px) {
+  [class*='background-'] {
+    -webkit-animation: fadeIn ease-in .2;
+            animation: fadeIn ease-in .2;
+    opacity: .2; }
+  .background-video {
+    opacity: .8; } }
+
+/*=== Animated Background Image === */
+.background.anim {
+  -webkit-animation: anim 80s linear infinite;
+          animation: anim 80s linear infinite;
+  background-position: center top;
+  background-repeat: repeat;
+  background-size: 100%;
+  height: 200%; }
+
+/*=== Background with a frame === */
+/*<span class="background" style="background-image:url('image.jpg')"></span>
+<span class="background frame"></span>*/
+[class*='background'].frame {
+  margin: 2.4rem; }
+
+
+/*===============================================================
+6. Magic blocks with flexbox (Auto-fill & Equal Height)
+Blocks Links li>a = .flexblock.blink (.blink required)
+================================================================= */
+.flexblock {
+  clear: both;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0; }
+  .flexblock:after {
+    clear: both; }
+  .flexblock:before {
+    content: '';
+    display: table; }
+  .flexblock li,
+  .flexblock.blink li > a {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    margin: 0;
+    padding: 2.4rem;
+    position: relative; }
+  .flexblock li {
+    -webkit-box-flex: 1;
+        -ms-flex: auto;
+            flex: auto;
+    text-align: left;
+    -webkit-transition: .3s;
+    transition: .3s;
+    width: 100%; }
+    .flexblock li:hover {
+      -webkit-transform: translateY(-0.2rem);
+              transform: translateY(-0.2rem); }
+    @media (min-width: 600px) {
+      .flexblock li {
+        width: 50%; } }
+    @media (min-width: 1024px) {
+      .flexblock li {
+        width: 25%; } }
+  .flexblock.aligncenter li {
+    text-align: center; }
+  .flexblock.vertical-align li {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center; }
+  .flexblock.blink li {
+    padding: 0; }
+  .flexblock li h2 svg,
+  .flexblock li h3 svg {
+    margin-top: 0; }
+
+h1 + .flexblock,
+h2 + .flexblock,
+h3 + .flexblock,
+div + ul,
+div + ol {
+  margin-top: 3.2rem; }
+
+.flexblock li h2,
+.flexblock li h3,
+footer .column h2,
+footer .column h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 3.2rem;
+  margin-bottom: 0; }
+
+.flexblock li li,
+.flexblock.blink li li {
+  padding: 0;
+  width: 100%; }
+
+[class*='content-'] .flexblock li p {
+  font-size: 1.8rem;
+  line-height: 3.2rem; }
+
+.content-right .flexblock.features li,
+.content-left .flexblock.features li {
+  width: 46%; }
+
+/*====================================================================
+6.1 Features <ul class="flexblock features">
+====================================================================== */
+.flexblock.features > li {
+  border-radius: .4rem;
+  margin-bottom: 4.8rem;
+  width: 100%; }
+
+.flexblock.features li h2 {
+  text-transform: uppercase; }
+
+.flexblock.features li span {
+  font-weight: 300; }
+
+.flexblock.features li p {
+  margin: 0; }
+
+.flexblock.features li p em {
+  display: block; }
+
+.flexblock.features li span,
+.flexblock.features li svg {
+  display: block;
+  font-size: 6.4rem;
+  line-height: 1;
+  margin: 0; }
+
+.flexblock.features li img {
+  width: 6.4rem; }
+
+.flexblock.features li span sup {
+  font-size: 3rem; }
+
+@media (min-width: 1200px) {
+  .flexblock.features li span,
+  .flexblock.features li svg,
+  .flexblock.features li img {
+    float: left;
+    margin-right: .8rem; } }
+
+@media (min-width: 768px) {
+  .flexblock.features {
+    margin-left: -2%;
+    margin-right: -2%; }
+  .flexblock.features > li {
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 29%; }
+  .size-50 .flexblock.features > li {
+    width: 46%; }
+  .column .flexblock.features > li {
+    width: 100%; }
+  footer .flexblock.features > li {
+    margin-bottom: 0; } }
+
+
+
+/*=========================================
+16. SAFARI BUGS (flex-wrap)
+Solution: stackoverflow.com/questions/34250282/flexbox-safari-bug-flex-wrap
+=========================================== */
+.flexblock:before,
+.flexblock:after,
+.grid:before,
+.grid:after,
+.cta:before,
+.cta:after {
+  width: 0; }
+
+
+/*=========================================
+17. PRINT
+=========================================== */
+@media print {
+  @page {
+    margin: .5cm;
+    size: A4 landscape; }
+  * {
+    background: transparent !important;
+    color: #000 !important;
+    -webkit-filter: none !important;
+            filter: none !important;
+    text-shadow: none !important; }
+  html,
+  body,
+  #webslides {
+    height: auto !important;
+    overflow: auto !important;
+    width: auto !important; }
+  #webslides {
+    overflow-x: auto !important;
+    overflow-y: auto !important; }
+  section,
+  .slide {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    height: auto !important; }
+  section * {
+    -webkit-animation: none;
+            animation: none; }
+  table,
+  figure {
+    page-break-inside: avoid; }
+  #counter,
+  #navigation {
+    display: none; } }
+
+/*=========================================
+19. Colors
+=========================================== */
+/* -- Disable elastic scrolling/bounce:
+webslides.js will add .ws-ready automatically. Don't worry :) -- */
+body {
+  background-color: #f7f9fb;
+  color: #333; }
+
+:focus {
+  -webkit-box-shadow: 0 0 2px #96bbee;
+          box-shadow: 0 0 2px #96bbee; }
+
+svg {
+  fill: currentColor; }
+
+[class*='bg-'] a,
+[class*='bg-gradient-'] a {
+  color: #bce; }
+
+.bg-brown a {
+  color: #c23; }
+
+a,
+.bg-white a,
+.bg-light a,
+.bg-gradient-white a {
+  color: #44d; }
+
+a:hover {
+  color: #3af; }
+
+.flexblock li > a,
+[class*='bg-'] li > a,
+[class*='bg-gradient-'] li > a,
+article header a {
+  color: inherit; }
+
+hr {
+  background: radial-gradient(ellipse at center, rgba(0, 20, 80, 0.2) 0, rgba(255, 255, 255, 0) 75%); }
+
+hr:after {
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #333; }
+
+abbr,
+acronym {
+  border-bottom: 1px dotted #f7f9fb; }
+
+mark,
+ins {
+  background-color: rgba(221, 238, 255, 0.8);
+  color: inherit; }
+
+::-moz-selection {
+  background-color: rgba(221, 238, 255, 0.8); }
+
+::-webkit-selection {
+  background-color: rgba(221, 238, 255, 0.8); }
+
+::selection {
+  background-color: rgba(221, 238, 255, 0.8); }
+
+pre {
+  background: #fff;
+  border: 1px solid rgba(0, 20, 80, 0.1);
+  -webkit-box-shadow: 0 8px 16px rgba(0, 20, 80, 0.04), 0 4px 16px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 8px 16px rgba(0, 20, 80, 0.04), 0 4px 16px rgba(0, 0, 0, 0.08); }
+
+pre:hover {
+  -webkit-box-shadow: 0 8px 16px rgba(0, 40, 160, 0.08), 0 8px 24px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 8px 16px rgba(0, 40, 160, 0.08), 0 8px 24px rgba(0, 0, 0, 0.08); }
+
+code,
+[class*='bg-'] pre {
+  background-color: rgba(255, 255, 255, 0.09); }
+
+.bg-white code {
+  background: rgba(0, 20, 80, 0.03); }
+
+/*================================================
+Slides - Backgrounds <section class="bg-primary">
+================================================== */
+/*3 Corp Colors*/
+.bg-primary {
+  background-color: #44d; }
+
+.bg-secondary {
+  background-color: #67d; }
+
+.bg-light {
+  background-color: #f7f9fb; }
+
+.bg-black {
+  background-color: #111; }
+
+.bg-black-blue {
+  background-color: #123; }
+
+.bg-blue {
+  background-color: #346; }
+
+.bg-brown {
+  background-color: #f9f8f2; }
+
+.bg-gray {
+  background-color: #d5d9e2; }
+
+.bg-green {
+  background-color: #077; }
+
+.bg-purple {
+  background-color: #62b; }
+
+.bg-red {
+  background-color: #c23; }
+
+.bg-white {
+  background-color: #fff; }
+
+.bg-facebook {
+  background-color: #3b5998; }
+
+[class*='bg-'] .bg-white {
+  color: #333;
+  text-shadow: none; }
+
+/*Font Color*/
+.bg-trans-dark,
+.bg-trans-gradient,
+.bg-primary,
+.bg-secondary,
+.bg-blue,
+.bg-green,
+.bg-purple,
+.bg-red,
+.bg-facebook,
+.bg-apple,
+[class*='bg-black'],
+[class*='bg-gradient-'] {
+  color: #fff;
+  text-shadow: 0 1px 0 #013; }
+
+.bg-light p {
+  color: #456; }
+
+.bg-brown p {
+  color: #666; }
+
+/*Transparent/Opacity*/
+.bg-trans-dark {
+  background: rgba(0, 0, 0, 0.8); }
+
+.bg-trans-light {
+  background: rgba(0, 0, 0, 0.2); }
+
+/*Covers/Longforms...*/
+.bg-trans-gradient {
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.8)), to(transparent));
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%); }
+
+
+/*Border/Frame*/
+.frame {
+  border: 0.8rem solid #fff; }
+
+[class*='background'].frame {
+  border-width: .2rem; }
+
+/*Layer/Box Shadow*/
+.shadow,
+.pre {
+  position: relative; }
+
+.shadow:before,
+.shadow:after {
+  -webkit-box-shadow: 0 16px 24px rgba(0, 20, 80, 0.3);
+          box-shadow: 0 16px 24px rgba(0, 20, 80, 0.3); }
+
+/*============================
+TYPOGRAPHY
+============================== */
+/* -- Horizontal separator  -- */
+.text-separator:before {
+  background-color: rgba(170, 0, 0, 0.8); }
+
+/* -- Pull Quote (Right/Left)  -- */
+[class*='text-pull-'] {
+  border-top: 4px solid rgba(0, 0, 0, 0.5); }
+
+img[class*='text-pull-'],
+figure[class*='text-pull-'] {
+  border-top: 0; }
+
+/* -- Context  -- */
+[class*='bg-'] .text-context:before {
+  background-color: #fff; }
+
+.text-context:before,
+.bg-white .text-context:before {
+  background-color: rgba(0, 20, 80, 0.2); }
+
+/* -- Text shadow  -- */
+.text-shadow {
+  text-shadow: 0 0 40px rgba(0, 0, 0, 0.5); }
+
+/* -- time, ampersands, prepositions (for, of...), symbols...
+[class*='card-'] time,
+h1 span {
+  color: #abd;
+}
+
+/* -- <pre> comment  -- */
+.code-comment {
+  color: rgba(70, 170, 130, 0.9);
+  text-shadow: none; }
+
+
+/*===================================================
+.flexblock li hover/active
+===================================================== */
+.flexblock li.active a,
+.metrics li:hover,
+.specs li:hover,
+.reasons li:hover {
+  background-color: rgba(0, 20, 80, 0.03); }
+
+/*=========================================
+Features & Clients List
+=========================================== */
+.features li,
+.clients li {
+  background-color: rgba(255, 255, 255, 0.9); }
+
+[class*='bg-'] .features li,
+[class*='bg-'] .clients li {
+  background-color: rgba(255, 255, 255, 0.1); }
+
+.features li:hover,
+.clients li:hover {
+  -webkit-box-shadow: 0 8px 16px rgba(0, 20, 80, 0.02), 0 4px 16px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 8px 16px rgba(0, 20, 80, 0.02), 0 4px 16px rgba(0, 0, 0, 0.08); }
+
+
+/*=========================================
+Overlays
+=========================================== */
+.overlay {
+  background-color: rgba(0, 0, 0, 0.2); }
+
+li:hover .overlay {
+  background-color: rgba(0, 0, 0, 0.1); }
+
+.overlay,
+.overlay a {
+  color: #fff;
+  text-shadow: 0 1px 0 #111; }
